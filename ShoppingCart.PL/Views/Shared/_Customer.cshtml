@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Shopping Cart</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="~/customer/css/styles.css" rel="stylesheet" />
+	<link href="~/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container px-4 ">
+			<a class="navbar-brand" href="/Customer/Home">
+				<i class="fas fa-shopping-cart"></i>
+				Shopping Cart
+			</a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/Customer/Home">Home</a>
+					</li>
+
+					@if (User.Identity.IsAuthenticated)
+					{
+						@if (User.IsInRole(UsersRoles.AdminRole))
+						{
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="/Admin/Dashboard">Dashboard</a>
+							</li>
+						}
+						else
+						{
+							<li class="nav-item">
+								<a class="nav-link active" href="/Customer/CustomerOrder/Index">Orders</a>
+							</li>
+						}
+					}
+				</ul>
+
+				<partial name="_LoginPartial" />
+
+				@if (User.Identity.IsAuthenticated)
+				{
+					<form class="d-flex">
+						<a href="/Customer/Cart" class="btn btn-outline-dark" type="submit">
+							<i class="bi-cart-fill me-1"></i>
+							Cart
+							@await Component.InvokeAsync("Cart")
+						</a>
+					</form>
+				}
+			</div>
+		</div>
+	</nav>
+	<!-- Header-->
+	<header style="background-color:#343a40!important;" class="py-4">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-5 fw-bolder">Welcome To Shopping Cart</h1>
+				<p class="lead fw-normal text-white-50 mb-0">You Can Find Amazing Products With Good Prices</p>
+			</div>
+		</div>
+	</header>
+	<!-- Section-->
+	@RenderBody()
+	<!-- Footer-->
+	<footer class="py-5 bg-dark">
+		<div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="~/customer/js/scripts.js"></script>
+	<!-- Sweet Alert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+	@await RenderSectionAsync("ValidationScriptSection", required: false)
+</body>
+</html>

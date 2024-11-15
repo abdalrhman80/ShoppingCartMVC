@@ -1,0 +1,48 @@
+﻿@model UserShoppingCart
+
+
+<form asp-action="AddToCart">
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="row gx-4 gx-lg-5 align-items-center">
+				<input hidden asp-for="ProductId" />
+
+				<div class="col-md-6">
+					<div class="d-flex justify-content-center align-content-center">
+						<img class="card-img-top mb-5 mb-md-0" style="width:85%" src="~/@Model.Product.Image" alt="@Model.Product.Name" />
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="fs-5 mb-1">@Model.Product.Category.Name</div>
+
+					<h1 class="display-5 fw-bolder">@Model.Product.Name</h1>
+
+					<div class="fs-5 mb-5">
+						<span>$@Model.Product.Price</span>
+					</div>
+
+					<p class="lead">@Model.Product.Description</p>
+
+					<div class="d-flex">
+						<input class="form-control text-center me-3" id="inputQuantity" style="max-width: 3rem" asp-for="Count" />
+						@if (User.Identity.IsAuthenticated)
+						{
+							<button class="btn btn-outline-dark flex-shrink-0" type="submit">
+								<i class="bi-cart-fill me-1"></i>
+								<span>Add to cart</span>
+							</button>
+						}
+						else
+						{
+							<a href="/Identity/Account/Login" class="btn btn-outline-dark flex-shrink-0">
+								<i class="bi-cart-fill me-1"></i>
+								<span>Add to cart</span>
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</form>

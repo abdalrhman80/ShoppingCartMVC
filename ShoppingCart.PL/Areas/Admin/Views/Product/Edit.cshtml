@@ -1,0 +1,49 @@
+﻿@model ProductViewModel
+@{
+	ViewBag.PageTitle = "Product Management";
+	ViewBag.CardTitle = "Edit Product";
+}
+
+<div class="row">
+	<div class="col-md-6 d-flex justify-content-center align-items-center d-md-none">
+		<div class="w-75">
+			<img id="ImagePreview" src='~/@Model.Product.Image' class="w-100" />
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<form asp-action="Edit" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Product.Id" />
+			<input type="hidden" asp-for="Product.Image" />
+
+			<partial name="PartialViews/_CreateEditPartial" />
+
+			<div>
+				<input type="submit" value="Save Changes" class="btn btn-success" />
+				<a asp-action="Index" class="btn btn-outline-secondary">Back To List</a>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-md-6 d-none d-md-flex justify-content-center align-items-center">
+		<div class="w-75">
+			<img id="ImagePreview" src='~/@Model.Product.Image' class="w-100" />
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		var ChangeImage = function (event) {
+			var imageHolder = document.querySelectorAll("#ImagePreview");
+			imageHolder[0].src = URL.createObjectURL(event.target.files[0]);
+			imageHolder[1].src = imageHolder[0].src;
+		}
+	</script>
+}
+
+@* Client-Side Validation *@
+@section ValidationScriptSection
+{
+	<partial name="_ValidationScriptsPartial" />
+}

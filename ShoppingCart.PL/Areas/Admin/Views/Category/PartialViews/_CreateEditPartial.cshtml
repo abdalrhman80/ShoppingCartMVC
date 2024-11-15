@@ -1,0 +1,12 @@
+﻿@model Category
+
+<div class="mb-3">
+	<label class="form-label" asp-for="Name"></label>
+	<input type="text" class="form-control" asp-for="Name" />
+	<span class="text-danger" asp-validation-for="Name"></span>
+</div>
+
+<div class="mb-3">
+	<label class="form-label" asp-for="Description"></label>
+	<textarea id="myTextArea" class="form-control" asp-for="Description" style="height: 90px"></textarea>
+</div>

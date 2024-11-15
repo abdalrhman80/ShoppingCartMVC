@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Category>
+@{
+	ViewBag.PageTitle = "Category Management";
+	ViewBag.CardTitle = "View Categories";
+	// Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="mb-3">
+	<a asp-action="Create" class="btn btn-primary">Create Category</a>
+</div>
+
+
+<table id="CategoriesTable" class="table table-hover text-center" width="100%">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(category => category.Name)</th>
+			<th>@Html.DisplayNameFor(category => category.Description)</th>
+			<th>@Html.DisplayNameFor(category => category.CreatedTime)</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+</table>
+
+@section Scripts {
+	<script src="~/js/categories.js"></script>
+}

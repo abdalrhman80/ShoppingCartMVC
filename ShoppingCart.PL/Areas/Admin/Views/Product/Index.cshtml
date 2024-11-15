@@ -1,0 +1,27 @@
+﻿@model Product
+@{
+	ViewBag.PageTitle = "Product Management";
+	ViewBag.CardTitle = "View Products";
+}
+
+<div class="mb-3">
+	<a asp-action="Create" class="btn btn-primary">Create Product</a>
+</div>
+
+<table id="ProductTable" class="table table-hover text-center" width="100%">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(product => product.Name)</th>
+			<th>@Html.DisplayNameFor(product => product.Description)</th>
+			<th>@Html.DisplayNameFor(product => product.Price)</th>
+			<th>@Html.DisplayNameFor(product => product.Category)</th>
+			<th>Details</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+</table>
+
+@section Scripts {
+	<script src="~/js/products.js"></script>
+}

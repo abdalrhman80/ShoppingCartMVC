@@ -1,0 +1,101 @@
+﻿@model IList<OrderHeader>
+
+<div class="py-3">
+	<div class="container text-center">
+		<div class="table-responsive border border-1 table-bordered rounded-3 m-3">
+			<table class="table mb-1 rounded">
+				<thead style="background:#343a40" class="rounded text-white">
+					<tr class="fw-bolder">
+						<th style="padding:12px 20px;">No.</th>
+						<th style="padding:12px 20px;">Date</th>
+						<th style="padding:12px 20px;">TotalPrice</th>
+						<th style="padding:12px 20px;">OrderStatus</th>
+						<th style="padding:12px 20px;">PaymentStatus</th>
+						<th style="padding:12px 20px;">Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@if (Model.Count() > 0)
+					{
+
+						@for (int i = 0; i < Model.Count(); i++)
+						{
+							<tr>
+								<td>@(i + 1)</td>
+
+								<td>@Model[i].OrderDate.ToShortDateString()</td>
+
+								<td>@Model[i].TotalPrice.ToString("c")</td>
+
+								<td>
+									@if (Model[i].OrderStatus == Status.Approve)
+									{
+										<span class=" text-primary  my-2">@Model[i].OrderStatus</span>
+									}
+									else if (Model[i].OrderStatus == Status.Processing)
+									{
+										<span class=" text-warning  my-2">@Model[i].OrderStatus</span>
+									}
+									else if (Model[i].OrderStatus == Status.Shipped)
+									{
+										<span class=" text-success  my-2">@Model[i].OrderStatus</span>
+									}
+									else if (Model[i].OrderStatus == Status.Canceled || Model[i].OrderStatus == Status.Refund)
+									{
+										<span class=" text-danger  my-2">@Model[i].OrderStatus</span>
+									}
+									else
+									{
+										<span class=" text-dark  my-2">@Model[i].OrderStatus</span>
+									}
+								</td>
+
+								<td>
+									@if (Model[i].PaymentStatus == Status.Approve)
+									{
+										<span class=" text-primary  my-2">@Model[i].PaymentStatus</span>
+									}
+									else if (Model[i].PaymentStatus == Status.Processing)
+									{
+										<span class=" text-warning  my-2">@Model[i].PaymentStatus</span>
+									}
+									else if (Model[i].PaymentStatus == Status.Shipped)
+									{
+										<span class=" text-success  my-2">@Model[i].PaymentStatus</span>
+									}
+									else if (Model[i].OrderStatus == Status.Canceled || Model[i].PaymentStatus == Status.Refund)
+									{
+										<span class=" text-danger  my-2">@Model[i].OrderStatus</span>
+									}
+									else
+									{
+										<span class=" text-dark  my-2">@Model[i].PaymentStatus</span>
+									}
+								</td>
+
+								<td>
+									<a asp-action="Details" asp-route-orderId="@Model[i].Id" class="btn btn-primary">Details</a>
+								</td>
+							</tr>
+						}
+					}
+					else
+					{
+						<tr>
+							<td colspan="6" style="font-weight: 500; font-size:1.55rem;" class="py-5 text-center text-danger"> There is no Orders Yet!</td>
+						</tr>
+					}
+				</tbody>
+
+				<tfoot>
+					<tr class="text-start">
+						<td colspan="5">
+							<a href="/Customer/Cart" class="text-primary fw-bolder fs-6 my-1 ms-2 text-decoration-none">New Orders <i class="fas fa-plus"></i></a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>

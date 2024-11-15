@@ -1,0 +1,52 @@
+﻿@model ProductViewModel
+@{
+	ViewBag.PageTitle = "Product Management";
+	ViewBag.CardTitle = "Product Details";
+	// Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-6 d-flex justify-content-center align-items-center d-md-none">
+		<div class="w-75">
+			<img src='~/@Model.Product.Image' class="w-100" />
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<form>
+			<input type="hidden" asp-for="Product.Image" />
+
+			<div class="mb-3">
+				<label class="form-label" asp-for="Product.Name"></label>
+				<input readonly type="text" class="form-control" asp-for="Product.Name" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" asp-for="Product.Description"></label>
+				@* <input readonly type="text" class="form-control" asp-for="Product.Description" /> *@
+				<textarea readonly class="form-control" asp-for="Product.Description" style="height: 100px"></textarea>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" asp-for="Product.Price"></label>
+				<input readonly type="text" class="form-control" value="@Model.Product.Price.ToString("c")" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" asp-for="Product.Category"></label>
+				<input readonly type="text" class="form-control" asp-for="Product.Category.Name" />
+			</div>
+
+			<div>
+				<a asp-action="Edit" asp-route-id="@Model.Product.Id" class="btn btn-dark">Go To Edit</a>
+				<a asp-action="Index" class="btn btn-outline-secondary">Back To List</a>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-md-6 d-none d-md-flex justify-content-center align-items-center">
+		<div class="w-75">
+			<img src='~/@Model.Product.Image' class="w-100" />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,73 @@
+﻿@page
+@model LoginModel
+
+@{
+	ViewData["Title"] = "Log in";
+}
+
+<section class="py-2">
+	<div class="container my-2">
+		<div class="row justify-content-between">
+			<div class="d-md-none d-flex justify-content-center align-items-center">
+				<div class="w-100 d-flex justify-content-center align-items-center mb-2">
+					<img src="~/img/Login.svg" class="w-75" />
+				</div>
+			</div>
+
+			<div class="col-md-6 pt-3">
+				<section>
+					<form id="account" method="post">
+						<h2>Use a local account to log in.</h2>
+						<hr />
+
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="form-floating mb-3">
+							<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+							<label asp-for="Input.Email" class="form-label"></label>
+							<span asp-validation-for="Input.Email" class="text-danger"></span>
+						</div>
+
+						<div class="form-floating mb-3">
+							<input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+							<label asp-for="Input.Password" class="form-label"></label>
+							<span asp-validation-for="Input.Password" class="text-danger"></span>
+						</div>
+
+						<div>
+							<div class="checkbox">
+								<label asp-for="Input.RememberMe" class="form-label">
+									<input class="form-check-input" asp-for="Input.RememberMe" />
+									@Html.DisplayNameFor(m => m.Input.RememberMe)
+								</label>
+							</div>
+						</div>
+
+						<div>
+							<button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+						</div>
+
+						<div class="pt-3">
+							<p>
+								<a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+							</p>
+							<p>
+								<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+							</p>
+						</div>
+					</form>
+				</section>
+			</div>
+
+			<div class="col-md-6 d-none d-md-flex justify-content-center align-items-center">
+				<div style="width: 85%;" class="d-flex justify-content-center align-items-center mb-2">
+					<img src="~/img/Login.svg" class="w-100" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

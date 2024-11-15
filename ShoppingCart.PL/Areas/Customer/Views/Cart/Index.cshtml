@@ -1,0 +1,115 @@
+﻿@model ShoppingCartViewModel
+
+<!--Cart Style-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="~/cart/style.css">
+
+<main class="page">
+	<section class="shopping-cart dark py-4">
+		<div class="container">
+			<div class="card">
+				<div class="card-header bg-dark text-light ml-0">
+					<div class="row">
+						<div class="col-6 pt-2">
+							<i class="fas fa-shopping-cart"></i> &nbsp;
+							Shopping Cart
+						</div>
+						<div class="col-6 text-end">
+							<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-light btn-sm">Continue Shopping</a>
+						</div>
+					</div>
+				</div>
+
+				@if (Model.CartItems.Count() > 0)
+				{
+					<div class="card-body p-0">
+						<div class="row">
+							<div class="col-12">
+								<div class="items">
+									@foreach (var cartItem in Model.CartItems)
+									{
+										<div class="product">
+											<div class="row justify-content-center align-items-center">
+												<div class="col-lg-2 col-md-3 d-flex justify-content-center align-items-center">
+													<div class="w-100 mb-3 mb-md-0 d-flex justify-content-center">
+														<img class="img-fluid mx-2 d-block image" src="~/@cartItem.Product.Image">
+													</div>
+												</div>
+
+												<div class="col-lg-10 col-md-9">
+													<div class="info pt-2">
+														<div class="row">
+															<div class="col-lg-3 col-md-6 product-name">
+																<div class="product-name">
+																	<a href="/Customer/Home/Details/@cartItem.ProductId">@cartItem.Product.Name</a>
+																	<div class="product-info">
+																		<div>Category: <span class="value">@cartItem.Product.Category.Name</span></div>
+																	</div>
+																</div>
+															</div>
+
+															<div class="col-md-3 quantity mt-3 mt-md-0 ">
+																<label class="fw-bolder">Quantity:</label>
+
+																<div class="btn-group d-flex justify-content-center align-items-center" role="group">
+																	<a class="btn btn-primary btn-sm" style="padding:4px 10px" asp-action="Plus" asp-route-itemId="@cartItem.Id">
+																		+
+																	</a>
+																	<span class="mx-2">@cartItem.Count</span>
+																	<a class="btn btn-primary btn-sm" style="padding:4px 10px" asp-action="Minus" asp-route-itemId="@cartItem.Id">
+																		-
+																	</a>
+																</div>
+															</div>
+
+															<div class="col-md-3 mt-md-0 mt-3 ps-md-4">
+																<label class="fw-bolder">Price:</label>
+																<p class="text-success fw-bolder mb-0">@((cartItem.Product.Price * cartItem.Count).ToString("c"))</p>
+															</div>
+
+															<div class="col-lg-3">
+																<a asp-action="Delete" asp-route-itemId="@cartItem.Id" class="w-100 btn btn-danger mt-3">
+																	Delete
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+
+						<hr class="bg-dark" />
+
+						<div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+							<ul class="list-group">
+								<li class="list-group-item d-flex justify-content-between bg-light">
+									<span class="text-dark"> Total (USD)</span>
+									<strong class="text-dark">@Model.TotalPrice.ToString("c")</strong>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="card-footer mt-3">
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+								<a asp-action="Summary" class="btn btn-primary btn-block mt-2">Summary</a>
+							</div>
+						</div>
+					</div>
+				}
+				else
+				{
+					<div style="font-size:1.55rem;" class="py-5 d-flex justify-content-center align-items-center fw-bold text-danger">
+						There is no Items in Your Cart
+					</div>
+				}
+			</div>
+		</div>
+	</section>
+</main>

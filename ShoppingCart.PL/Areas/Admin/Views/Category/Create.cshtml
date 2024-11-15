@@ -1,0 +1,23 @@
+﻿@model Category
+@{
+	ViewData["Title"] = "Create";
+	ViewBag.PageTitle = "Category Management";
+	ViewBag.CardTitle = "Create Category";
+	// Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<form asp-action="Create">
+
+	<partial name="PartialViews/_CreateEditPartial" />
+
+	<div>
+		<input type="submit" value="Submit" class="btn btn-primary" />
+		<a asp-action="Index" class="btn btn-outline-secondary">Back To List</a>
+	</div>
+</form>
+
+@* Client-Side Validation *@
+@section ValidationScriptSection
+{
+	<partial name="_ValidationScriptsPartial" />
+}

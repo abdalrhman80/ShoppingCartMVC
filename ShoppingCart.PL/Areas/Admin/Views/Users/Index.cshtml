@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+	ViewBag.PageTitle = "Users Management";
+	ViewBag.CardTitle = "View Users";
+}
+
+<div class="mb-3">
+	<a href="/Identity/Account/Register" class="btn btn-primary">Create New User</a>
+</div>
+
+
+<table id="UsersTable" class="table table-hover text-center" width="100%">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(user => user.UserName)</th>
+			<th>@Html.DisplayNameFor(user => user.FullName)</th>
+			<th>@Html.DisplayNameFor(user => user.Email)</th>
+			<th>@Html.DisplayNameFor(user => user.PhoneNumber)</th>
+			<th>Account Status</th>
+		</tr>
+	</thead>
+</table>
+
+@section Scripts {
+	<script src="~/js/users.js"></script>
+}
