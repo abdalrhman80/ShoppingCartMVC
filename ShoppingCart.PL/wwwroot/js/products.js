@@ -6,36 +6,47 @@ $(document).ready(function () {
 
 function loadData() {
     dtble = $("#ProductTable").DataTable({
+        // Enable responsive features
+        responsive: true,
+        // Add scrollX for horizontal scrolling
+        scrollX: true,
         "ajax": {
             "url": "/Admin/Product/GetProductsData"
         },
         "columns": [
             {
-                "data": "name", "render": function (data) {
+                "data": "name",
+                "responsivePriority": 1, // Highest priority - always visible
+                "render": function (data) {
                     const maxLength = 50;
                     if (data.length > maxLength) {
                         return data.slice(0, maxLength) + '...';
                     }
-                    return data; // Return original data if it doesn't exceed maxLength
+                    return data;
                 }
             },
             {
                 "data": "description",
+                "responsivePriority": 4,
                 "render": function (data) {
                     const maxLength = 50;
                     if (data.length > maxLength) {
                         return data.slice(0, maxLength) + '...';
                     }
-                    return data; // Return original data if it doesn't exceed maxLength
+                    return data;
                 }
             },
             {
                 "data": "price",
+                "responsivePriority": 2, // High priority for price
                 "render": function (data) {
                     return data.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
                 }
             },
-            { "data": "category.name" },
+            {
+                "data": "category.name",
+                "responsivePriority": 3
+            },
             {
                 "data": "id",
                 "render": function (data) {
@@ -58,9 +69,41 @@ function loadData() {
                 },
                 orderable: false
             }
-        ]
+        ],
+        // Customize responsive behavior
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        return 'Details for ' + row.data().name;
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table table-striped'
+                })
+            }
+        },
+
+        // Add DOM configuration for better responsive layout
+        dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
+            '<"row"<"col-sm-12"tr>>' +
+            '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+
+        // Add language configuration for better UX
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search Products..."
+        }
     });
 }
+
+// Add window resize handler
+$(window).on('resize', function () {
+    if (dtble) {
+        dtble.columns.adjust().responsive.recalc();
+    }
+});
+
 
 function DeleteItem(urlPath) {
     Swal.fire({

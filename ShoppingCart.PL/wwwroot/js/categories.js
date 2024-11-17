@@ -6,11 +6,16 @@ $(document).ready(function () {
 
 function loadData() {
     dtble = $("#CategoriesTable").DataTable({
+        responsive: true,
+        scrollX: true,
         "ajax": {
             "url": "/Admin/Category/GetCategoriesData"
         },
         "columns": [
-            { "data": "name" },
+            {
+                "data": "name",
+                "responsivePriority": 1
+            },
             {
                 "data": "description",
                 "render": function (data) {
@@ -19,19 +24,22 @@ function loadData() {
                         return data.slice(0, maxLength) + '...';
                     }
                     return data;
-                }
+                },
+                "responsivePriority": 3
             },
             {
                 "data": "createdTime",
                 "render": function (data) {
                     return new Date(data).toLocaleDateString();
                 },
+                "responsivePriority": 4
             },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<a href="/Admin/Category/Edit/${data}" class="btn btn-success"> Edit </a>`
                 },
+                "responsivePriority": 2,
                 orderable: false
             },
             {
@@ -39,11 +47,32 @@ function loadData() {
                 "render": function (data) {
                     return `<a onClick=DeleteItem("/Admin/Category/DeleteCategory/${data}") class="btn btn-danger">Delete</a>`
                 },
+                "responsivePriority": 2,
                 orderable: false
             }
-        ]
+        ],
+        // Customize responsive behavior
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        return 'Details for ' + row.data().name;
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        }
     });
 }
+
+// Add window resize handler to adjust table
+$(window).on('resize', function () {
+    if (dtble) {
+        dtble.columns.adjust().responsive.recalc();
+    }
+});
 
 function DeleteItem(urlPath) {
     Swal.fire({
@@ -68,11 +97,6 @@ function DeleteItem(urlPath) {
                     }
                 }
             });
-            //Swal.fire(
-            //    'Deleted!',
-            //    'The product has been deleted.',
-            //    'success'
-            //);
         }
     });
 }
