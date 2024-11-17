@@ -2,131 +2,192 @@
 @inject IOptions<StripeOptions> Stripe
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="~/cart/summary.css" />
 
-<div class="wrapper my-3">
-	<div class="h5 large mb-3">Billing Address</div>
-	<form asp-action="Checkout">
+<div class="checkout-wrapper">
+	<form asp-action="Checkout" method="post">
 		<div class="row">
-			<div class="col-lg-7 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
-				<p class="mobile h5">Billing Address</p>
+			<div class="col-lg-7 col-md-12">
+				<div class="form-card">
+					<h2 class="h5 mb-4">Billing Address</h2>
 
-				<div id="details" class="bg-white rounded">
 					<div class="form-group">
-						<label>Name</label>
+						<label for="name">Name</label>
 						<input id="name" type="text" class="form-control" asp-for="OrderHeader.UserName" />
-						<span asp-validation-for="OrderHeader.UserName"></span>
+						<span asp-validation-for="OrderHeader.UserName" class="validation-message"></span>
 					</div>
 
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label>Phone Number</label>
-								<input id="phoneNumber" class="form-control" type="text" asp-for="OrderHeader.PhoneNumber">
-								<span asp-validation-for="OrderHeader.PhoneNumber"></span>
+								<label for="phoneNumber">Phone Number</label>
+								<input id="phoneNumber" type="text" class="form-control" asp-for="OrderHeader.PhoneNumber" />
+								<span asp-validation-for="OrderHeader.PhoneNumber" class="validation-message"></span>
 							</div>
 						</div>
-
-						<div class="col-lg-6">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label>City</label>
-								<input id="city" class="form-control" type="text" asp-for="OrderHeader.City">
-								<span asp-validation-for="OrderHeader.City"></span>
+								<label for="city">City</label>
+								<input id="city" type="text" class="form-control" asp-for="OrderHeader.City" />
+								<span asp-validation-for="OrderHeader.City" class="validation-message"></span>
 							</div>
 						</div>
 					</div>
 
 					<div class="form-group mb-0">
-						<label>Address</label>
-						<input id="address" class="form-control" type="text" asp-for="OrderHeader.Address">
-						<span asp-validation-for="OrderHeader.Address"></span>
+						<label for="address">Address</label>
+						<input id="address" type="text" class="form-control" asp-for="OrderHeader.Address" />
+						<span asp-validation-for="OrderHeader.Address" class="validation-message"></span>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-5 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3">
-				<div id="cart" class="bg-white rounded">
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="h6">Cart Summary</div>
-						<div class="h6">
-							<a asp-action="Index">Edit</a>
-						</div>
+			<div class="col-lg-5 col-md-12">
+				<div class="form-card">
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h2 class="h5 mb-0">Cart Summary</h2>
+						<a asp-action="Index" class="text-primary">Edit</a>
 					</div>
 
 					@foreach (var cartItem in Model.CartItems)
 					{
-						<div class="d-flex justify-content-between align-items-center pt-3 pb-2 border-bottom">
-							<div class="item pr-2">
-								<img src="~/@cartItem.Product.Image" alt="@cartItem.Product.Name" width="80" height="80">
-								<span class="number">@cartItem.Count</span>
+						<div class="cart-item">
+							<div class="cart-item-image">
+								<img src="~/@cartItem.Product.Image" alt="@cartItem.Product.Name" width="90" height="80"
+									 class="rounded" />
+								<span class="cart-item-count">@cartItem.Count</span>
 							</div>
-							<div class="d-flex justify-content-between align-items-center w-100">
-								<h6 class="fw-bold px-3">@cartItem.Product.Name</h6>
+							<div class="cart-item-details">
+								<h6 class="mb-0">@cartItem.Product.Name</h6>
 								<span class="font-weight-bold">@cartItem.Product.Price.ToString("c")</span>
 							</div>
 						</div>
 					}
-					<div class="d-flex align-items-center py-2 mt-1">
-						<div style="font-size:1.2rem">Total</div>
-						<div class="ml-auto d-flex">
-							<div class="text-info text-uppercase px-3">usd</div>
-							<div class="font-weight-bold">@Model.OrderHeader.TotalPrice.ToString("c")</div>
-						</div>
-					</div>
-				</div>
 
-				<div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2">
-					<div class="col-md-12 pt-md-0 pt-3">
-						<button type="submit" class="btn btn-primary w-100" onclick="return CheckData()">Checkout</button>
+					<div class="cart-total">
+						<span>Total</span>
+						<span>@Model.OrderHeader.TotalPrice.ToString("c")</span>
 					</div>
+
+					<button type="submit" class="btn btn-primary checkout-btn" onclick="return CheckData()">
+						Checkout
+					</button>
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
 
+<style>
+	.checkout-wrapper {
+		padding: 1rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.form-card {
+		background: white;
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		margin-bottom: 1.5rem;
+	}
+
+	.cart-item {
+		display: flex;
+		align-items: center;
+		padding: 1rem 0;
+		border-bottom: 1px solid #eee;
+	}
+
+	.cart-item-image {
+		position: relative;
+		margin-right: 1rem;
+	}
+
+	.cart-item-count {
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		background: #007bff;
+		color: white;
+		border-radius: 50%;
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.875rem;
+	}
+
+	.cart-item-details {
+		flex-grow: 1;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		/* flex-wrap: wrap; */
+	}
+
+	.cart-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 0;
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+
+	@@media (max-width: 768px) {
+		.cart-item-details {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.form-card {
+			padding: 1rem;
+		}
+	}
+
+	@@media (max-width: 576px) {
+		.checkout-wrapper {
+			padding: 1rem;
+		}
+	}
+
+	.validation-message {
+		color: #dc3545;
+		font-size: 0.875rem;
+		margin-top: 0.25rem;
+	}
+
+	.checkout-btn {
+		width: 100%;
+		padding: 0.75rem;
+		font-size: 1.1rem;
+	}
+</style>
+
 @section Scripts {
 	<script>
 		function CheckData() {
-			if (document.getElementById("name").value == '') {
-				Swal.fire({
-					title: 'There Is An Error',
-					text: "Please Enter Name",
-					icon: 'error',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-				});
-				return false;
-			}
-			if (document.getElementById("phoneNumber").value == '') {
-				Swal.fire({
-					title: 'There Is An Error',
-					text: "Please Enter PhoneNumber Number",
-					icon: 'error',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-				});
-				return false;
-			}
-			if (document.getElementById("city").value == '') {
-				Swal.fire({
-					title: 'There Is An Error',
-					text: "Please Enter City",
-					icon: 'error',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-				});
-				return false;
-			}			
-			if (document.getElementById("address").value == '') {
-				Swal.fire({
-					title: 'There Is An Error',
-					text: "Please Enter Address",
-					icon: 'error',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-				});
-				return false;
+			const fields = [
+				{ id: 'name', label: 'Name' },
+				{ id: 'phoneNumber', label: 'Phone Number' },
+				{ id: 'city', label: 'City' },
+				{ id: 'address', label: 'Address' }
+			];
+
+			for (const field of fields) {
+				if (document.getElementById(field.id).value.trim() === '') {
+					Swal.fire({
+						title: 'There Is An Error',
+						text: `Please Enter ${field.label}`,
+						icon: 'error',
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+					});
+					return false;
+				}
 			}
 			return true;
 		}

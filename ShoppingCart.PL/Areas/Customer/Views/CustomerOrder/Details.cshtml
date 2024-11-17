@@ -2,136 +2,137 @@
 
 <div class="py-3">
 	<div class="container">
-		<div class="border border-1 table-bordered rounded-3 py-3 px-4 my-4">
-			<h4 class="my-2">Order Details:</h4>
+		<div class="order-card">
+			<h4 class="mb-4">Order Details</h4>
 
-			<div class="row pt-4 g-5 mb-5">
+			<div class="row g-4 mb-5">
 				<!-- Customer Info -->
-				<div class="col-md-6 d-flex">
-					<div class="me-3 pb-4">
-						<i style="background-color:#f1f1f1a3;" class="fas fa-user p-3 rounded-circle"></i>
-					</div>
-					<div>
-						<h5 class="fw-bold">Customer Info</h5>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">Name:</span>
-							<span class="text-muted">@Model.OrderHeader.UserName</span>
+				<div class="col-md-6">
+					<div class="info-section">
+						<div class="info-icon">
+							<i class="fas fa-user"></i>
 						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">Email:</span>
-							<span class="text-muted">@Model.OrderHeader.ApplicationUser.Email</span>
-						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">Phone:</span>
-							<span class="text-muted">@Model.OrderHeader.PhoneNumber</span>
-						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">Address:</span>
-							<span class="text-muted">@Model.OrderHeader.Address</span>
-						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">City:</span>
-							<span class="text-muted">@Model.OrderHeader.City</span>
+						<div class="info-content">
+							<h5 class="fw-bold mb-3">Customer Info</h5>
+							<div class="info-item">
+								<span class="info-label">Name:</span>
+								<span class="text-muted">@Model.OrderHeader.UserName</span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">Email:</span>
+								<span class="text-muted">@Model.OrderHeader.ApplicationUser.Email</span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">Phone:</span>
+								<span class="text-muted">@Model.OrderHeader.PhoneNumber</span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">Address:</span>
+								<span class="text-muted">@Model.OrderHeader.Address</span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">City:</span>
+								<span class="text-muted">@Model.OrderHeader.City</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Order Info -->
-				<div class="col-md-6 d-flex">
-					<div class="me-3 pb-4">
-						<i style="background-color:#f1f1f1a3;" class="fas fa-shopping-cart p-3 rounded-circle"></i>
-					</div>
-					<div>
-						<h5 class="fw-bold">Order Info</h5>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">OrderDate:</span>
-							<span class="text-muted">@Model.OrderHeader.OrderDate.ToLongDateString()</span>
+				<div class="col-md-6">
+					<div class="info-section">
+						<div class="info-icon">
+							<i class="fas fa-shopping-cart"></i>
 						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">OrderStatus:</span>
-							@if (Model.OrderHeader.OrderStatus == Status.Approve)
-							{
-								<span class=" text-primary  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
-							else if (Model.OrderHeader.OrderStatus == Status.Processing)
-							{
-								<span class=" text-warning  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
-							else if (Model.OrderHeader.OrderStatus == Status.Shipped)
-							{
-								<span class=" text-success  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
-							else if (Model.OrderHeader.OrderStatus == Status.Canceled || @Model.OrderHeader.OrderStatus == Status.Refund)
-							{
-								<span class=" text-danger  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
-							else
-							{
-								<span class=" text-dark  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
-						</div>
-						<div class="mb-1 font-sm">
-							<span style="font-weight:600;">PaymentStatus:</span>
-							@if (Model.OrderHeader.PaymentStatus == Status.Approve)
-							{
-								<span class=" text-primary  my-2">@Model.OrderHeader.PaymentStatus</span>
-							}
-							else if (Model.OrderHeader.PaymentStatus == Status.Processing)
-							{
-								<span class=" text-warning  my-2">@Model.OrderHeader.PaymentStatus</span>
-							}
-							else if (Model.OrderHeader.PaymentStatus == Status.Shipped)
-							{
-								<span class=" text-success  my-2">@Model.OrderHeader.PaymentStatus</span>
-							}
-							else if (Model.OrderHeader.PaymentStatus == Status.Canceled || @Model.OrderHeader.PaymentStatus == Status.Refund)
-							{
-								<span class=" text-danger  my-2">@Model.OrderHeader.PaymentStatus</span>
-							}
-							else
-							{
-								<span class=" text-dark  my-2">@Model.OrderHeader.OrderStatus</span>
-							}
+						<div class="info-content">
+							<h5 class="fw-bold mb-3">Order Info</h5>
+							<div class="info-item">
+								<span class="info-label">Order Date:</span>
+								<span class="text-muted">@Model.OrderHeader.OrderDate.ToLongDateString()</span>
+							</div>
+							<div class="info-item flex-">
+								<span class="info-label">Order Status:</span>
+
+								@if (Model.OrderHeader.OrderStatus == Status.Approve)
+								{
+									<span class="badge text-white bg-primary align-self-start">@Model.OrderHeader.OrderStatus</span>
+								}
+								else if (Model.OrderHeader.OrderStatus == Status.Processing)
+								{
+									<span class="badge text-white bg-warning align-self-start">@Model.OrderHeader.OrderStatus</span>
+								}
+								else if (Model.OrderHeader.OrderStatus == Status.Shipped)
+								{
+									<span class="badge text-white bg-success align-self-start">@Model.OrderHeader.OrderStatus</span>
+								}
+								else if (Model.OrderHeader.OrderStatus == Status.Canceled || @Model.OrderHeader.OrderStatus == Status.Refund)
+								{
+									<span class="badge text-white bg-danger align-self-start">@Model.OrderHeader.OrderStatus</span>
+								}
+								else
+								{
+									<span class="badge text-white bg-dark">@Model.OrderHeader.OrderStatus</span>
+								}
+							</div>
+							<div class="info-item">
+								<span class="info-label">Payment Status:</span>
+
+								@if (Model.OrderHeader.PaymentStatus == Status.Approve)
+								{
+									<span class="badge text-white bg-primary align-self-start">@Model.OrderHeader.PaymentStatus</span>
+								}
+								else if (Model.OrderHeader.PaymentStatus == Status.Processing)
+								{
+									<span class="badge text-white bg-warning align-self-start">@Model.OrderHeader.PaymentStatus</span>
+								}
+								else if (Model.OrderHeader.PaymentStatus == Status.Shipped)
+								{
+									<span class="badge text-white bg-success align-self-start">@Model.OrderHeader.PaymentStatus</span>
+								}
+								else if (Model.OrderHeader.PaymentStatus == Status.Canceled || @Model.OrderHeader.PaymentStatus == Status.Refund)
+								{
+									<span class="badge text-white bg-danger align-self-start">@Model.OrderHeader.PaymentStatus</span>
+								}
+								else
+								{
+									<span class="badge text-white bg-dark">@Model.OrderHeader.PaymentStatus</span>
+								}
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<!-- Product Table -->
-			<div class="table-responsive border border-3 border-light rounded-3 m-md-3">
-				<table class="table mb-0 rounded-3">
+			<div class="table-responsive">
+				<table class="product-table">
 					<thead>
-						<tr class="table-light fw-bolder">
+						<tr class="bg-light">
 							<th>Name</th>
 							<th>Quantity</th>
 							<th>Price</th>
-							@* <th>Total</th> *@
 						</tr>
 					</thead>
-
 					<tbody>
 						@foreach (var item in Model.OrderDetails)
 						{
 							<tr>
 								<td>
-									<div class="d-flex align-items-center">
-										<img style="width: 40px; height:40px;" src="/@item.Product.Image" alt="@item.Product.Name">
-										<span class="ms-2 fw-bolder font-sm">@item.Product.Name</span>
+									<div class="d-flex align-items-center gap-2">
+										<img class="product-image" src="/@item.Product.Image" alt="@item.Product.Name">
+										<span class="fw-bold">@item.Product.Name</span>
 									</div>
 								</td>
 								<td>@item.Quantity</td>
 								<td>@item.Product.Price.ToString("c")</td>
-								@* <td>@((item.Quantity * item.Price).ToString("c"))</td> *@
 							</tr>
 						}
 					</tbody>
-
-					<tfoot style="background:#f8f9fa">
-						<tr  style="font-size:1rem;">
-							<th colspan="2" class="py-3 rounded">
-								<span class="ms-1">Total</span>
-							</th>
-							<td colspan="2" class="py-3 rounded">@Model.OrderHeader.TotalPrice.ToString("c")</td>
+					<tfoot class="bg-light">
+						<tr>
+							<th colspan="2" class="py-3">Total</th>
+							<td class="py-3 fw-bold">@Model.OrderHeader.TotalPrice.ToString("c")</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -139,3 +140,101 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.order-card {
+		background: white;
+		border-radius: 0.75rem;
+		border: 1px solid #dee2e6;
+		padding: 1.5rem;
+		margin: 1rem 0;
+	}
+
+	.info-icon {
+		background-color: #f1f1f1a3;
+		padding: 0.75rem;
+		border-radius: 50%;
+		width: 2.5rem;
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.info-section {
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.info-content {
+		flex: 1;
+	}
+
+	.info-item {
+		margin-bottom: 0.5rem;
+		font-size: 0.875rem;
+	}
+
+	.info-label {
+		font-weight: 600;
+		margin-right: 0.5rem;
+	}
+
+	.product-image {
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+		border-radius: 0.25rem;
+	}
+
+	.product-table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0;
+		margin-bottom: 1rem;
+	}
+
+		.product-table thead {
+			background-color: #f8f9fa;
+		}
+
+		.product-table th,
+		.product-table td {
+			padding: 1rem;
+		}
+
+	/* Responsive styles */
+	@@media (max-width: 768px) {
+		.order-card {
+			padding: 1rem;
+		}
+
+		.info-sections {
+			flex-direction: column;
+		}
+
+		.product-table {
+			display: block;
+			overflow-x: auto;
+			white-space: nowrap;
+		}
+
+			.product-table th,
+			.product-table td {
+				padding: 0.75rem;
+			}
+
+		.info-section {
+			margin-bottom: 2rem;
+		}
+	}
+
+	@@media (max-width: 576px) {
+		.info-item {
+			display: flex;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+	}
+</style>

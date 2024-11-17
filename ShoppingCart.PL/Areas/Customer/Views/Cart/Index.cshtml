@@ -1,115 +1,195 @@
 ﻿@model ShoppingCartViewModel
 
-<!--Cart Style-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<link rel="stylesheet" href="~/cart/style.css">
 
-<main class="page">
-	<section class="shopping-cart dark py-4">
+<main class="shopping-cart-page">
+	<section class="shopping-cart py-4">
 		<div class="container">
-			<div class="card">
-				<div class="card-header bg-dark text-light ml-0">
-					<div class="row">
-						<div class="col-6 pt-2">
-							<i class="fas fa-shopping-cart"></i> &nbsp;
-							Shopping Cart
+			<div class="card shadow-sm">
+				<div class="card-header text-light">
+					<div class="d-flex justify-content-between align-items-center flex-wrap">
+						<div class="card-header-title d-flex align-items-center">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="ms-2">Shopping Cart</span>
 						</div>
-						<div class="col-6 text-end">
-							<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-light btn-sm">Continue Shopping</a>
-						</div>
+						<a asp-area="Customer" asp-controller="Home" asp-action="Index"
+						   class="btn btn-outline-light btn-sm">
+							Continue Shopping
+						</a>
 					</div>
 				</div>
 
 				@if (Model.CartItems.Count() > 0)
 				{
 					<div class="card-body p-0">
-						<div class="row">
-							<div class="col-12">
-								<div class="items">
-									@foreach (var cartItem in Model.CartItems)
-									{
-										<div class="product">
-											<div class="row justify-content-center align-items-center">
-												<div class="col-lg-2 col-md-3 d-flex justify-content-center align-items-center">
-													<div class="w-100 mb-3 mb-md-0 d-flex justify-content-center">
-														<img class="img-fluid mx-2 d-block image" src="~/@cartItem.Product.Image">
+						<div class="cart-items">
+							@foreach (var cartItem in Model.CartItems)
+							{
+								<div class="cart-item p-3 border-bottom">
+									<div class="row g-3 align-items-center">
+										<div class="col-12 col-sm-6 col-md-3 col-lg-2">
+											<div class="product-image-wrapper">
+												<img class="img-fluid rounded" src="~/@cartItem.Product.Image" alt="@cartItem.Product.Name">
+											</div>
+										</div>
+
+										<div class="col-12 col-sm-6 col-md-9 col-lg-10">
+											<div class="product-details">
+												<div class="row g-3">
+													<div class="col-12 col-md-4">
+														<h5 class="product-title mb-1">
+															<a href="/Customer/Home/Details/@cartItem.ProductId"
+															   class="text-decoration-none">
+																@cartItem.Product.Name
+															</a>
+														</h5>
+														<div class="product-category small text-muted">
+															Category: @cartItem.Product.Category.Name
+														</div>
 													</div>
-												</div>
 
-												<div class="col-lg-10 col-md-9">
-													<div class="info pt-2">
-														<div class="row">
-															<div class="col-lg-3 col-md-6 product-name">
-																<div class="product-name">
-																	<a href="/Customer/Home/Details/@cartItem.ProductId">@cartItem.Product.Name</a>
-																	<div class="product-info">
-																		<div>Category: <span class="value">@cartItem.Product.Category.Name</span></div>
-																	</div>
-																</div>
-															</div>
-
-															<div class="col-md-3 quantity mt-3 mt-md-0 ">
-																<label class="fw-bolder">Quantity:</label>
-
-																<div class="btn-group d-flex justify-content-center align-items-center" role="group">
-																	<a class="btn btn-primary btn-sm" style="padding:4px 10px" asp-action="Plus" asp-route-itemId="@cartItem.Id">
-																		+
-																	</a>
-																	<span class="mx-2">@cartItem.Count</span>
-																	<a class="btn btn-primary btn-sm" style="padding:4px 10px" asp-action="Minus" asp-route-itemId="@cartItem.Id">
-																		-
-																	</a>
-																</div>
-															</div>
-
-															<div class="col-md-3 mt-md-0 mt-3 ps-md-4">
-																<label class="fw-bolder">Price:</label>
-																<p class="text-success fw-bolder mb-0">@((cartItem.Product.Price * cartItem.Count).ToString("c"))</p>
-															</div>
-
-															<div class="col-lg-3">
-																<a asp-action="Delete" asp-route-itemId="@cartItem.Id" class="w-100 btn btn-danger mt-3">
-																	Delete
-																</a>
+													<div class="col-12 col-md-3">
+														<div class="quantity-controls">
+															<label class="form-label fw-bold mb-2">Quantity</label>
+															<div class="input-group input-group-sm">
+																<a class="btn btn-primary" asp-action="Minus"
+																   asp-route-itemId="@cartItem.Id">-</a>
+																<span class="input-group-text bg-white px-3">
+																	@cartItem.Count
+																</span>
+																<a class="btn btn-primary" asp-action="Plus"
+																   asp-route-itemId="@cartItem.Id">+</a>
 															</div>
 														</div>
+													</div>
+
+													<div class="col-12 col-md-3">
+														<label class="form-label fw-bold mb-2">Price</label>
+														<div class="text-success fw-bold">
+															@((cartItem.Product.Price * cartItem.Count).ToString("c"))
+														</div>
+													</div>
+
+													<div class="col-12 col-md-2">
+														<a asp-action="Delete" asp-route-itemId="@cartItem.Id"
+														   class="btn btn-danger btn-sm w-100">
+															Delete
+														</a>
 													</div>
 												</div>
 											</div>
 										</div>
-									}
+									</div>
 								</div>
-							</div>
+							}
 						</div>
 
-						<hr class="bg-dark" />
-
-						<div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
-							<ul class="list-group">
-								<li class="list-group-item d-flex justify-content-between bg-light">
-									<span class="text-dark"> Total (USD)</span>
-									<strong class="text-dark">@Model.TotalPrice.ToString("c")</strong>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="card-footer mt-3">
-						<div class="row">
-							<div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
-								<a asp-action="Summary" class="btn btn-primary btn-block mt-2">Summary</a>
+						<div class="cart-summary p-3">
+							<div class="row justify-content-end">
+								<div class="col-12 col-md-6 col-lg-4">
+									<div class="card bg-light">
+										<div class="card-body">
+											<div class="d-flex justify-content-between align-items-center">
+												<span class="fw-bold">Total (USD)</span>
+												<span class="fw-bold">@Model.TotalPrice.ToString("c")</span>
+											</div>
+										</div>
+									</div>
+									<a asp-action="Summary" class="btn btn-primary w-100 mt-3">
+										Proceed to Summary
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				}
 				else
 				{
-					<div style="font-size:1.55rem;" class="py-5 d-flex justify-content-center align-items-center fw-bold text-danger">
-						There is no Items in Your Cart
+					<div class="empty-cart p-5 text-center">
+						<i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+						<h4 class="text-danger">Your Cart is Empty</h4>
+						<p class="text-muted">Add some items to get started!</p>
 					</div>
 				}
 			</div>
 		</div>
 	</section>
 </main>
+
+<style>
+	.shopping-cart-page {
+		font-family: 'Montserrat', sans-serif;
+	}
+
+	.card-header {
+		background: #343a40;
+	}
+
+	.cart-item {
+		transition: background-color 0.2s ease;
+	}
+
+		.cart-item:hover {
+			background-color: #f8f9fa;
+		}
+
+	.product-image-wrapper {
+		height: 120px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+		.product-image-wrapper img {
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+	.product-title a {
+		color: #333;
+		transition: color 0.2s ease;
+	}
+
+		.product-title a:hover {
+			color: #007bff;
+		}
+
+	.quantity-controls .input-group-text {
+		min-width: 40px;
+		justify-content: center;
+	}
+
+	@@media (max-width: 372px) {
+		.card-header-title {
+			margin-bottom: 14px;
+		}
+	}
+
+	@@media (max-width: 767.98px) {
+		.product-image-wrapper {
+			height: 200px;
+		}
+
+		.cart-item {
+			padding: 1rem !important;
+		}
+
+		.product-details .row > div {
+			margin-bottom: 1rem;
+		}
+
+			.product-details .row > div:last-child {
+				margin-bottom: 0;
+			}
+	}
+
+	@@media (max-width: 575.98px) {
+		.product-image-wrapper {
+			height: 200px;
+		}
+
+		.cart-summary {
+			padding: 1rem !important;
+		}
+	}
+</style>
