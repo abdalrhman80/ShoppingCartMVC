@@ -30,7 +30,12 @@ function loadData() {
             {
                 "data": "createdTime",
                 "render": function (data) {
-                    return new Date(data).toLocaleDateString();
+                    const date = new Date(data);
+                    return date.toLocaleDateString(undefined, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
                 },
                 "responsivePriority": 4
             },

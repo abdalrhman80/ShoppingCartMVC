@@ -108,32 +108,32 @@
 
     /* Badge Colors */
     .badge.bg-primary {
-        background-color: #007bff !important;
+        background-color: #007bff ;
     }
 
     .badge.bg-secondary {
-        background-color: #6c757d !important;
+        background-color: #6c757d ;
     }
 
     .badge.bg-success {
-        background-color: #28a745 !important;
+        background-color: #28a745 ;
     }
 
     .badge.bg-danger {
-        background-color: #dc3545 !important;
+        background-color: #dc3545 ;
     }
 
     .badge.bg-warning {
-        background-color: #ffc107 !important;
+        background-color: #ffc107 ;
     }
 
     .badge.bg-info {
-        background-color: #17a2b8 !important;
+        background-color: #17a2b8 ;
     }
 
     /* Badge Text Colors */
     .badge.bg-warning {
-        color: #000 !important;
+        color: #000 ;
     }
 
     .badge.bg-primary,
@@ -141,46 +141,46 @@
     .badge.bg-success,
     .badge.bg-danger,
     .badge.bg-info {
-        color: #fff !important;
+        color: #fff ;
     }
 
 /* ============= Text Styling ============= */
 /* Status Text Colors */
 .text-primary {
-    color: #007bff !important;
+    color: #007bff ;
 }
 
 .text-success {
-    color: #28a745 !important;
+    color: #28a745 ;
 }
 
 .text-danger {
-    color: #dc3545 !important;
+    color: #dc3545 ;
 }
 
 .text-warning {
-    color: #ffc107 !important;
+    color: #ffc107 ;
 }
 
 .text-info {
-    color: #17a2b8 !important;
+    color: #17a2b8 ;
 }
 
 .text-muted {
-    color: #6c757d !important;
+    color: #6c757d ;
 }
 
 /* Text Alignment */
 .text-center {
-    text-align: center !important;
+    text-align: center ;
 }
 
 .text-right {
-    text-align: right !important;
+    text-align: right ;
 }
 
 .text-left {
-    text-align: left !important;
+    text-align: left ;
 }
 
 /* ============= Links Styling ============= */
@@ -221,20 +221,20 @@
 }
 
     .dataTables_paginate .paginate_button.current {
-        color: #fff !important;
-        background-color: #007bff !important;
-        border-color: #007bff !important;
+        color: #fff ;
+        background-color: #007bff ;
+        border-color: #007bff ;
     }
 
     .dataTables_paginate .paginate_button:hover:not(.current) {
-        color: #0056b3 !important;
-        background-color: #e9ecef !important;
-        border-color: #dee2e6 !important;
+        color: #0056b3 ;
+        background-color: #e9ecef ;
+        border-color: #dee2e6 ;
     }
 
     /* Disabled Pagination Buttons */
     .dataTables_paginate .paginate_button.disabled {
-        color: #6c757d !important;
+        color: #6c757d ;
         pointer-events: none;
         background-color: #fff;
         border-color: #dee2e6;
@@ -284,41 +284,41 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 /* ============= Utility Classes ============= */
 /* Spacing */
 .ms-2 {
-    margin-left: 0.5rem !important;
+    margin-left: 0.5rem ;
 }
 
 .me-2 {
-    margin-right: 0.5rem !important;
+    margin-right: 0.5rem ;
 }
 
 .mb-2 {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.5rem ;
 }
 
 .mt-2 {
-    margin-top: 0.5rem !important;
+    margin-top: 0.5rem ;
 }
 
 /* Flex Utilities */
 .d-flex {
-    display: flex !important;
+    display: flex ;
 }
 
 .align-items-center {
-    align-items: center !important;
+    align-items: center ;
 }
 
 .justify-content-center {
-    justify-content: center !important;
+    justify-content: center ;
 }
 
 /* Font Weights */
 .font-weight-bold {
-    font-weight: 700 !important;
+    font-weight: 700 ;
 }
 
 .font-weight-normal {
-    font-weight: 400 !important;
+    font-weight: 400 ;
 }
 
 /* ============= Print Styles ============= */
@@ -337,6 +337,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
         .dataTables_filter,
         .dataTables_length,
         .dataTables_paginate {
-            display: none !important;
+            display: none ;
         }
 }
